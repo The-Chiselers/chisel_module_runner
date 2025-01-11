@@ -113,16 +113,6 @@ object Main {
           gates_bw.write(gates_str)
           gates_bw.close()
 
-        // if sta is enabled, run sta
-//          if (conf.synth.sta()) {
-//            val sta = Sta.
-//            // write $build_folder/synth/$name/sta.log
-//            val sta_file = new File(s"$build_folder/synth/$name/sta.log")
-//            sta_file.createNewFile()
-//            val sta_bw = new java.io.BufferedWriter(new java.io.FileWriter(sta_file))
-//            sta_bw.write(sta.getStdout)
-//            sta_bw.close()
-//          }
         }
       }
       case _ => {
