@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.iml" filepath="$PROJECT_DIR$/.idea/modules/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.main-build.iml" filepath="$PROJECT_DIR$/.idea/modules/main.main-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chisel_module_runner.iml" filepath="$PROJECT_DIR$/.idea/modules/chisel_module_runner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chisel_module_runner.chisel_module_runner-build.iml" filepath="$PROJECT_DIR$/.idea/modules/chisel_module_runner.chisel_module_runner-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/stdlib.iml" filepath="$PROJECT_DIR$/.idea/modules/stdlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/stdlib.stdlib-build.iml" filepath="$PROJECT_DIR$/.idea/modules/stdlib.stdlib-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/synth.iml" filepath="$PROJECT_DIR$/.idea/modules/synth.iml" />

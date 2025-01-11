@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="main_1582" />
-    <profile name="sbt 2" modules="main,stdlib,synth">
+    <profile name="sbt 2" modules="chisel_module_runner,main,stdlib,synth">
       <option name="reflectiveCalls" value="true" />
       <option name="deprecationWarnings" value="true" />
       <option name="featureWarnings" value="true" />

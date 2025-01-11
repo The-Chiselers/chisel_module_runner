@@ -18,7 +18,7 @@ lazy val synth = RootProject(
 )
 lazy val root = (project in file("."))
   .settings(
-    name                   := "main",
+    name                   := "chisel_module_runner",
     Test / publishArtifact := true,
     libraryDependencies ++= Seq(
       "org.chipsalliance" %% "chisel"     % chiselVersion,
