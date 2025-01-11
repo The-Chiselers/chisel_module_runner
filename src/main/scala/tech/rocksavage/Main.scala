@@ -2,7 +2,7 @@ package tech.rocksavage
 import chisel3._
 import java.io.File
 import tech.rocksavage.args.Conf
-import tech.rocksavage.config.ConfigTrait
+import tech.rocksavage.traits.ModuleConfig
 import tech.rocksavage.synth.Synth.{
   genVerilogFromModuleName,
   synthesizeFromModuleName
@@ -18,7 +18,7 @@ object Main {
         conf.verilog.configClass.toOption match {
           case Some(configClassPath) =>
             val configClass =
-              Class.forName(configClassPath).asSubclass(classOf[ConfigTrait])
+              Class.forName(configClassPath).asSubclass(classOf[ModuleConfig])
             val configInstance =
               configClass.getDeclaredConstructor().newInstance()
             configInstance.getDefaultConfigs
@@ -31,7 +31,7 @@ object Main {
         conf.synth.configClass.toOption match {
           case Some(configClassPath) =>
             val configClass =
-              Class.forName(configClassPath).asSubclass(classOf[ConfigTrait])
+              Class.forName(configClassPath).asSubclass(classOf[ModuleConfig])
             val configInstance =
               configClass.getDeclaredConstructor().newInstance()
             configInstance.getDefaultConfigs
