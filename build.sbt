@@ -13,6 +13,9 @@ val scalafmtVersion = "2.5.0"
 lazy val stdlib = RootProject(
   uri("https://github.com/The-Chiselers/stdlib.git#dev")
 )
+lazy val synth = RootProject(
+  uri("https://github.com/The-Chiselers/synth.git#dev")
+)
 lazy val root = (project in file("."))
   .settings(
     name                   := "main",
@@ -33,4 +36,4 @@ lazy val root = (project in file("."))
       "org.chipsalliance" % "chisel-plugin" % chiselVersion cross CrossVersion.full
     )
   )
-  .dependsOn(stdlib)
+  .dependsOn(stdlib, synth)
