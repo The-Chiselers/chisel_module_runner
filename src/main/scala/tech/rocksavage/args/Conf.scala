@@ -1,30 +1,59 @@
 package tech.rocksavage.args
+
 import org.rogach.scallop.{ScallopConf, Subcommand}
-import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
+
+/**
+ * A class that defines and parses command-line arguments using Scallop.
+ * It supports two subcommands: `verilog` and `synth`, each with their own options.
+ *
+ * @param arguments The command-line arguments passed to the application.
+ */
 class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
+
+  /**
+   * Subcommand for generating Verilog.
+   */
   object verilog extends Subcommand("verilog") {
     val mode = opt[String](
       default = Some("print"),
-      validate = List("print", "write").contains(_)
+      validate = List("print", "write").contains(_),
+      descr = "Mode of operation: 'print' to print Verilog to console, 'write' to write to a file."
     )
-    val module = opt[String](required = true)
+    val module = opt[String](
+      required = true,
+      descr = "The name of the module to generate Verilog for."
+    )
     val configClass = opt[String](
       default = None,
-      descr = "Classpath to the configuration class implementing ConfigTrait",
+      descr = "Classpath to the configuration class implementing ModuleConfig.",
       required = true
     )
   }
+
+  /**
+   * Subcommand for synthesizing the design.
+   */
   object synth extends Subcommand("synth") {
-    val module  = opt[String](required = true)
-    var techlib = opt[String](required = true)
-    var sta     = opt[Boolean](default = Some(false))
+    val module = opt[String](
+      required = true,
+      descr = "The name of the module to synthesize."
+    )
+    var techlib = opt[String](
+      required = true,
+      descr = "The technology library to use for synthesis."
+    )
+    var sta = opt[Boolean](
+      default = Some(false),
+      descr = "Enable static timing analysis (STA)."
+    )
     val configClass = opt[String](
       default = None,
-      descr = "Classpath to the configuration class implementing ConfigTrait",
+      descr = "Classpath to the configuration class implementing ModuleConfig.",
       required = true
     )
   }
-  addSubcommand(verilog)
-  addSubcommand(synth)
-  verify()
+
+  addSubcommand(verilog) // Register the verilog subcommand
+  addSubcommand(synth)   // Register the synth subcommand
+  verify() // Validate the parsed arguments
 }
