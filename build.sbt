@@ -11,7 +11,7 @@ val chiselVersion   = "6.6.0"
 val scalafmtVersion = "2.5.0"
 
 lazy val timer = RootProject(
-  uri("https://github.com/The-Chiselers/timer.git#main")
+  uri("https://github.com/The-Chiselers/timer.git#dev")
 )
 lazy val root = (project in file("."))
   .settings(
