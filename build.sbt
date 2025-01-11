@@ -10,8 +10,8 @@ ThisBuild / organizationName := "Rocksavage Technology"
 val chiselVersion   = "6.6.0"
 val scalafmtVersion = "2.5.0"
 
-lazy val timer = RootProject(
-  uri("https://github.com/The-Chiselers/timer.git#dev")
+lazy val stdlib = RootProject(
+  uri("https://github.com/The-Chiselers/stdlib.git#dev")
 )
 lazy val root = (project in file("."))
   .settings(
@@ -33,4 +33,4 @@ lazy val root = (project in file("."))
       "org.chipsalliance" % "chisel-plugin" % chiselVersion cross CrossVersion.full
     )
   )
-  .dependsOn(timer)
+  .dependsOn(stdlib)
