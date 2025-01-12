@@ -55,6 +55,13 @@ object Sta {
       tclWriter.write(tclContent)
       tclWriter.close()
 
+      // Write Netlist to file
+      val netlistFile = new File(s"$build_folder/synth/$name/${staConf.module().split('.').last}_net.v")
+      netlistFile.getParentFile.mkdirs()
+      val netlistWriter = new PrintWriter(netlistFile)
+      netlistWriter.write(synth.getSynthString)
+      netlistWriter.close()
+
       // Perform STA
       val staResult = performSta(staConf.module(), build_folder, name)
 
