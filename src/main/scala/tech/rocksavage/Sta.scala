@@ -19,7 +19,6 @@ object Sta {
   def sta(conf: Conf, defaultConfigs: Map[String, Any], build_folder: File): Unit = {
     val staConf = conf.sta
     defaultConfigs.foreach { case (name, params) =>
-      println(s"Synthesizing configuration: $name")
       val synthCommands = List(
         SynthCommand.Synth,
         SynthCommand.Flatten,
@@ -34,7 +33,6 @@ object Sta {
       val sdcContent = generateSdc(conf, build_folder, synth.getSynthString, name, params)
 
       // Write SDC to file
-      println(s"Writing SDC file for configuration: ${staConf.module()}")
       val moduleName = staConf.module().split('.').last
       val sdcFile = new File(s"$build_folder/sta/$name/${moduleName}.sdc")
       sdcFile.getParentFile.mkdirs()
@@ -160,11 +158,9 @@ object Sta {
    * @return The STA result.
    */
   private def performSta(moduleName: String, build_folder: File, configName: String): StaResult = {
-    val top = moduleName.split('.').last
     val staFolder = s"$build_folder/sta/$configName"
 
     // Run STA using the TCL file
-//    val staCommand = s"sta -no_init -no_splash -exit $staFolder/sta.tcl"
     val staCommand: Seq[String] = Seq("sta", "-no_init", "-no_splash", "-exit", s"$staFolder/sta.tcl")
     val (exitCode, stdout, stderr) = Util.runCommand(staCommand)
     if (exitCode != 0) {
@@ -173,14 +169,6 @@ object Sta {
       println(stderr)
       throw new RuntimeException("STA failed")
     }
-
-
-
-    // Parse the timing report to extract slack
-//    val slack = stdout.split("\n")
-//      .find(_.contains("slack"))
-//      .map(_.split("\\s+").last.toFloat)
-//      .getOrElse(0.0f)
 
     val slack = stdout.split("\n")
       .find(_.contains("slack"))
