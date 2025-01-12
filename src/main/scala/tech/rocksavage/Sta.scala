@@ -177,9 +177,19 @@ object Sta {
 
 
     // Parse the timing report to extract slack
+//    val slack = stdout.split("\n")
+//      .find(_.contains("slack"))
+//      .map(_.split("\\s+").last.toFloat)
+//      .getOrElse(0.0f)
+
     val slack = stdout.split("\n")
       .find(_.contains("slack"))
-      .map(_.split("\\s+").last.toFloat)
+      .map(line => {
+        println(line)
+        val slackPattern = """slack\s+(\S+)\s+""".r
+        val slackPattern(slack) = line
+        slack.toFloat
+      })
       .getOrElse(0.0f)
 
     new StaResult(slack)
