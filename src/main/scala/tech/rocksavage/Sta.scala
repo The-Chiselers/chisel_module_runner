@@ -41,7 +41,7 @@ object Sta {
       val sdcContent = generateSdc(conf, build_folder, synth.getSynthString, name, params)
 
       // Write SDC to file
-      val sdcFile = new File(s"$build_folder/sta/$name/${staConf.module()}.sdc")
+      val sdcFile = new File(s"$build_folder/sta/$name/${staConf.module().split(".").last}.sdc")
       sdcFile.getParentFile.mkdirs()
       val pw = new PrintWriter(sdcFile)
       pw.write(sdcContent)
@@ -66,7 +66,7 @@ object Sta {
       val staResult = performSta(staConf.module(), build_folder, name)
 
       // Write STA results to files
-      val sta_folder = new File(s"$build_folder/sta/${name.split('.').last}")
+      val sta_folder = new File(s"$build_folder/sta/${name}")
       sta_folder.mkdirs()
       writeFile(s"$sta_folder/slack.txt", staResult.getSlack.toString)
     }
