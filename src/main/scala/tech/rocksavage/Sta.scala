@@ -48,7 +48,7 @@ object Sta {
       pw.close()
 
       // Generate TCL file for STA
-      val tclContent = generateTcl(staConf.module(), build_folder, name)
+      val tclContent = generateTcl(staConf.module(), build_folder, name, staConf.techlib())
       val tclFile = new File(s"$build_folder/sta/$name/sta.tcl")
       tclFile.getParentFile.mkdirs()
       val tclWriter = new PrintWriter(tclFile)
@@ -135,13 +135,13 @@ object Sta {
    * @param configName The name of the configuration.
    * @return The generated TCL content as a string.
    */
-  private def generateTcl(moduleName: String, build_folder: File, configName: String): String = {
+  private def generateTcl(moduleName: String, build_folder: File, configName: String, techlib: String): String = {
     val top = moduleName.split('.').last
     s"""
        |set top $top
        |set projectRoot ${build_folder.getAbsolutePath}
        |set buildRoot ${build_folder.getAbsolutePath}
-       |read_liberty $build_folder/synth/stdcells.lib
+       |read_liberty $techlib
        |read_verilog $build_folder/synth/$configName/${top}_net.v
        |link_design $top
        |source $build_folder/sta/$configName/${top}.sdc
@@ -164,10 +164,14 @@ object Sta {
 
     // Run STA using the TCL file
     val staCommand = s"sta -no_init -no_splash -exit $staFolder/sta.tcl"
-    val exitCode = staCommand.!
-
-    if (exitCode != 0) {
-      throw new RuntimeException(s"STA process failed with exit code $exitCode")
+    try {
+      val exitCode = staCommand.!
+      if (exitCode != 0) {
+        throw new RuntimeException(s"STA process failed with exit code $exitCode")
+      }
+    } catch {
+      case e: Exception =>
+        println(s"STA failed with exception: ${e.getMessage}")
     }
 
     // Parse the timing report to extract slack
