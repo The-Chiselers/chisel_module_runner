@@ -11,10 +11,10 @@ val chiselVersion   = "6.6.0"
 val scalafmtVersion = "2.5.0"
 
 lazy val stdlib = RootProject(
-  uri("https://github.com/The-Chiselers/stdlib.git#dev")
+  uri("https://github.com/The-Chiselers/stdlib.git#main")
 )
 lazy val synth = RootProject(
-  uri("https://github.com/The-Chiselers/synth.git#dev")
+  uri("https://github.com/The-Chiselers/synth.git#main")
 )
 lazy val root = (project in file("."))
   .settings(
