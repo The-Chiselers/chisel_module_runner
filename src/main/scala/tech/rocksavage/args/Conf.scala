@@ -53,7 +53,31 @@ class Conf(arguments: Seq[String]) extends ScallopConf(arguments) {
     )
   }
 
+  /**
+   * Subcommand for running static timing analysis (STA).
+   */
+  object sta extends Subcommand("sta") {
+    val module = opt[String](
+      required = true,
+      descr = "The name of the module to synthesize."
+    )
+    val configClass = opt[String](
+      default = None,
+      descr = "Classpath to the configuration class implementing ModuleConfig.",
+      required = true
+    )
+    var techlib = opt[String](
+      required = true,
+      descr = "The technology library to use for synthesis."
+    )
+    val clockPeriod = opt[Double](
+      required = true,
+      descr = "The target clock period for the design."
+    )
+  }
+
   addSubcommand(verilog) // Register the verilog subcommand
   addSubcommand(synth)   // Register the synth subcommand
+  addSubcommand(sta)     // Register the sta subcommand
   verify() // Validate the parsed arguments
 }

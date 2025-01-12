@@ -26,6 +26,7 @@ object Main {
     conf.subcommand match {
       case Some(conf.verilog) => VerilogGenerator.generate(conf, defaultConfigs) // Generate Verilog
       case Some(conf.synth)   => Synthesizer.synthesize(conf, defaultConfigs, build_folder) // Synthesize the design
+      case Some(conf.sta)     => Sta.sta(conf, defaultConfigs, build_folder) // Perform Timing Analysis
       case _                  => println("No subcommand given") // Handle invalid or missing subcommand
     }
   }
