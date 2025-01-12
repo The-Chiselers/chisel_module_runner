@@ -1,18 +1,11 @@
 package tech.rocksavage
 
-import chisel3._
-import chisel3.stage.{ChiselCircuitAnnotation, DesignAnnotation}
-import circt.stage.{CIRCTTarget, CIRCTTargetAnnotation, ChiselStage}
 import tech.rocksavage.args.Conf
 import tech.rocksavage.synth.Synth.synthesizeFromModuleName
 import tech.rocksavage.synth.{SynthCommand, SynthConfig}
-
 import java.io.{File, PrintWriter}
-import java.lang.reflect.Field
 import sys.process._
-//import chisel3.stage.ChiselStage
-import chisel3.stage.ChiselGeneratorAnnotation
-import firrtl.AnnotationSeq
+import tech.rocksavage.util.Util
 
 /** An object responsible for synthesizing the design based on the provided configurations. */
 object Sta {
@@ -169,22 +162,22 @@ object Sta {
   private def performSta(moduleName: String, build_folder: File, configName: String): StaResult = {
     val top = moduleName.split('.').last
     val staFolder = s"$build_folder/sta/$configName"
-    val timingRpt = s"$staFolder/timing.rpt"
 
     // Run STA using the TCL file
-    val staCommand = s"sta -no_init -no_splash -exit $staFolder/sta.tcl"
-    try {
-      val exitCode = staCommand.!
-      if (exitCode != 0) {
-        throw new RuntimeException(s"STA process failed with exit code $exitCode")
-      }
-    } catch {
-      case e: Exception =>
-        println(s"STA failed with exception: ${e.getMessage}")
+//    val staCommand = s"sta -no_init -no_splash -exit $staFolder/sta.tcl"
+    val staCommand: Seq[String] = Seq("sta", "-no_init", "-no_splash", "-exit", s"$staFolder/sta.tcl")
+    val (exitCode, stdout, stderr) = Util.runCommand(staCommand)
+    if (exitCode != 0) {
+      println(s"STA failed with exit code $exitCode")
+      println(stdout)
+      println(stderr)
+      throw new RuntimeException("STA failed")
     }
 
+
+
     // Parse the timing report to extract slack
-    val slack = scala.io.Source.fromFile(timingRpt).getLines()
+    val slack = stdout.split("\n")
       .find(_.contains("slack"))
       .map(_.split("\\s+").last.toFloat)
       .getOrElse(0.0f)
