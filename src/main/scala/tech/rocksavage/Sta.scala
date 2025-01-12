@@ -41,7 +41,7 @@ object Sta {
       val sdcContent = generateSdc(conf, build_folder, synth.getSynthString, name, params)
 
       // Write SDC to file
-      val sdcFile = new File(s"$build_folder/sdc/$name/${staConf.module()}.sdc")
+      val sdcFile = new File(s"$build_folder/sta/$name/${staConf.module()}.sdc")
       sdcFile.getParentFile.mkdirs()
       val pw = new PrintWriter(sdcFile)
       pw.write(sdcContent)
