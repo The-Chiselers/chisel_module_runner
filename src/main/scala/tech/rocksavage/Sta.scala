@@ -56,7 +56,7 @@ object Sta {
       tclWriter.close()
 
       // Write Netlist to file
-      val netlistFile = new File(s"$build_folder/synth/$name/${staConf.module().split('.').last}_net.v")
+      val netlistFile = new File(s"$build_folder/sta/$name/${staConf.module().split('.').last}_net.v")
       netlistFile.getParentFile.mkdirs()
       val netlistWriter = new PrintWriter(netlistFile)
       netlistWriter.write(synth.getSynthString)
@@ -149,7 +149,7 @@ object Sta {
        |set projectRoot ${build_folder.getAbsolutePath}
        |set buildRoot ${build_folder.getAbsolutePath}
        |read_liberty $techlib
-       |read_verilog $build_folder/synth/$configName/${top}_net.v
+       |read_verilog $build_folder/sta/$configName/${top}_net.v
        |link_design $top
        |source $build_folder/sta/$configName/${top}.sdc
        |check_setup
