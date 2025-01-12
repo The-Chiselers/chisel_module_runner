@@ -18,6 +18,7 @@ object ConfigLoader {
     conf.subcommand match {
       case Some(conf.verilog) => loadConfig(conf.verilog.configClass.toOption) // Load config for Verilog generation
       case Some(conf.synth)   => loadConfig(conf.synth.configClass.toOption) // Load config for synthesis
+      case Some(conf.sta)     => loadConfig(conf.sta.configClass.toOption) // Load config for static timing analysis
       case _ => {
         println("No run option provided")
         exit(1) // Exit if no valid subcommand is provided
