@@ -187,6 +187,7 @@ object Sta {
       .map(line => {
         println(line)
         val slackPattern = """\s*(\d+\.\d+)\s+slack""".r
+        println(slackPattern)
         val slackPattern(slack) = line
         slack.toFloat
       })
