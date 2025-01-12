@@ -66,7 +66,7 @@ object Sta {
       val staResult = performSta(staConf.module(), build_folder, name)
 
       // Write STA results to files
-      val sta_folder = new File(s"$build_folder/sta/$name")
+      val sta_folder = new File(s"$build_folder/sta/${name.split('.').last}")
       sta_folder.mkdirs()
       writeFile(s"$sta_folder/slack.txt", staResult.getSlack.toString)
     }
