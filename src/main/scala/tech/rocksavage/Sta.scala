@@ -76,7 +76,6 @@ object Sta {
   def generateSdc(conf: Conf, build_folder: File, netlist: String, configName: String, params: Any): String = {
     val staConf = conf.sta
     val name = staConf.module().split('.').last
-    println(s"Generating SDC for configuration: $name")
 
     // Parse IO signals from the Verilog netlist
     val ioSignals = parseIoSignalsFromVerilog(netlist)
