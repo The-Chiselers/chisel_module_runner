@@ -1,6 +1,5 @@
 package tech.rocksavage
 
-import tech.rocksavage.args.Conf
 import tech.rocksavage.traits.ModuleConfig
 import scala.sys.exit
 
@@ -15,7 +14,7 @@ object ConfigLoader {
    * @param conf The parsed command-line arguments.
    * @return A map of configuration names to their corresponding parameters.
    */
-  def loadConfigs(conf: Conf): Map[String, Any] = {
+  def loadConfigs(conf: tech.rocksavage.args.Conf): Map[String, Any] = {
     conf.subcommand match {
       case Some(conf.verilog) => loadConfig(conf.verilog.configClass.toOption) // Load config for Verilog generation
       case Some(conf.synth)   => loadConfig(conf.synth.configClass.toOption) // Load config for synthesis
