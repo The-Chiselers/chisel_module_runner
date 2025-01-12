@@ -186,7 +186,7 @@ object Sta {
       .find(_.contains("slack"))
       .map(line => {
         println(line)
-        val slackPattern = """slack\s+(\S+)\s+""".r
+        val slackPattern = """(.*?)\s+slack""".r
         val slackPattern(slack) = line
         slack.toFloat
       })
