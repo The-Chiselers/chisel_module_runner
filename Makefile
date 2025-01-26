@@ -3,12 +3,12 @@ MAKEFLAGS += --silent
 # Define SBT variable
 SBT = sbt
 
+# Add phony targets
+.PHONY: clean update
+
 update:
 	@echo Updating...
-	rm -rf ~/.sbt
-	rm -rf ~/.ivy2
-	sbt clean
-	sbt dependencyUpdates
+	sbt clean update
 
 # Start with a fresh directory
 clean:
